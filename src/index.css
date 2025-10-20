@@ -39,3 +39,12 @@ body {
 .add-cart-btn:active {
   border: 1px solid var(--color-red);
 }
+
+.order-btn {
+  transition: all 0.3s;
+}
+
+/* .order-btn:hover,
+.order-btn:active {
+  background: var(--color-rose);
+} */
