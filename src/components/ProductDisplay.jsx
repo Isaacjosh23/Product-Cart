@@ -1,0 +1,23 @@
+import { ProductTitle } from "./ProductTitle";
+import { ProductList } from "./ProductList";
+import data from "../../data.json";
+import { useState } from "react";
+
+const products = data;
+
+export const ProductDisplay = () => {
+  // const [cart, setCart] = useState([]);
+  // console.log(cart);
+
+  return (
+    <div className="flex flex-col gap-12 container">
+      <ProductTitle />
+
+      <ul className="grid grid-cols-3 gap-x-16 gap-y-24">
+        {products.map((product) => (
+          <ProductList key={product.name} product={product} />
+        ))}
+      </ul>
+    </div>
+  );
+};

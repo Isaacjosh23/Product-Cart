@@ -44,7 +44,15 @@ body {
   transition: all 0.3s;
 }
 
-/* .order-btn:hover,
-.order-btn:active {
-  background: var(--color-rose);
-} */
+.cancel-btn {
+  box-shadow: inset 0 0 0 2px var(--color-rose-100);
+  transition: all 0.3s;
+}
+
+.cancel-btn:hover,
+.cancel-btn:active {
+  box-shadow: none;
+  color: #f4edeb;
+}
+
+/* .in-cart-btn{} */
