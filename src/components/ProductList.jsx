@@ -31,7 +31,7 @@ export const ProductList = ({ product }) => {
     <li className="flex flex-col gap-12 relative">
       <div>
         <img
-          src={product.image.desktop}
+          src={"../../assets/images/" + product.image.desktop}
           alt={product.name}
           className="w-72 rounded-2xl"
         />
