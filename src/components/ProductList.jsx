@@ -1,15 +1,25 @@
 import { useCart } from "../useCart";
 
 export const ProductList = ({ product }) => {
-  const { getCartItem, handleAddToCart, handleDecrement, cart } = useCart();
-
-  console.log(cart);
+  const {
+    getCartItem,
+    handleAddToCart,
+    handleDecrement,
+    handleIncrement,
+    cart,
+  } = useCart();
 
   const isInCart = getCartItem(product.name);
 
+  const quantity = isInCart?.quantity;
+
+  console.log(quantity);
+
+  console.log(cart);
+
   function handleSelected() {
     const newCartItem = {
-      id: product.name,
+      name: product.name,
       quantity: 1,
       product,
     };
@@ -38,7 +48,12 @@ export const ProductList = ({ product }) => {
       </div>
 
       {isInCart ? (
-        <InCartButton product={product} onDecrement={handleDecrement} />
+        <InCartButton
+          product={product}
+          onDecrement={handleDecrement}
+          onIncrement={handleIncrement}
+          quantity={quantity}
+        />
       ) : (
         <AddToCartButton onHandleSelect={handleSelected} />
       )}
@@ -59,19 +74,23 @@ const AddToCartButton = ({ onHandleSelect }) => {
   );
 };
 
-const InCartButton = ({ product, onDecrement }) => {
+const InCartButton = ({ product, onDecrement, onIncrement, quantity }) => {
   return (
     <div className="flex items-center justify-between gap-3 w-[14rem] bg-[var(--color-red)] rounded-full absolute top-[16rem] left-[2rem] text-center] py-[5px] px-[1rem] text-white text-xl">
       <button
         onClick={() => onDecrement(product.name)}
+        disabled={quantity === 1}
         className="rounded-full p-[4px]! border border-white cursor-pointer"
       >
         <img src="../../assets/images/icon-decrement-quantity.svg" alt="" />
       </button>
 
-      <span className="font-semibold">1</span>
+      <span className="font-semibold">{quantity}</span>
 
-      <button className="rounded-full p-[4px]! border border-white cursor-pointer">
+      <button
+        onClick={() => onIncrement(product.name)}
+        className="rounded-full p-[4px]! border border-white cursor-pointer"
+      >
         <img src="../../assets/images/icon-increment-quantity.svg" alt="" />
       </button>
     </div>
