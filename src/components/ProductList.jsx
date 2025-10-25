@@ -1,21 +1,12 @@
 import { useCart } from "../useCart";
 
 export const ProductList = ({ product }) => {
-  const {
-    getCartItem,
-    handleAddToCart,
-    handleDecrement,
-    handleIncrement,
-    cart,
-  } = useCart();
+  const { getCartItem, handleAddToCart, handleDecrement, handleIncrement } =
+    useCart();
 
   const isInCart = getCartItem(product.name);
 
   const quantity = isInCart?.quantity;
-
-  console.log(quantity);
-
-  console.log(cart);
 
   function handleSelected() {
     const newCartItem = {
