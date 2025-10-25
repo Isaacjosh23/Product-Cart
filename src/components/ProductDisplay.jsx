@@ -1,14 +1,10 @@
 import { ProductTitle } from "./ProductTitle";
 import { ProductList } from "./ProductList";
 import data from "../../data.json";
-import { useState } from "react";
 
 const products = data;
 
 export const ProductDisplay = () => {
-  // const [cart, setCart] = useState([]);
-  // console.log(cart);
-
   return (
     <div className="flex flex-col gap-12 container">
       <ProductTitle />

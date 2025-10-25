@@ -1,21 +1,12 @@
 import { useCart } from "../useCart";
 
 export const ProductList = ({ product }) => {
-  const {
-    getCartItem,
-    handleAddToCart,
-    handleDecrement,
-    handleIncrement,
-    cart,
-  } = useCart();
+  const { getCartItem, handleAddToCart, handleDecrement, handleIncrement } =
+    useCart();
 
   const isInCart = getCartItem(product.name);
 
   const quantity = isInCart?.quantity;
-
-  console.log(quantity);
-
-  console.log(cart);
 
   function handleSelected() {
     const newCartItem = {
@@ -31,7 +22,7 @@ export const ProductList = ({ product }) => {
     <li className="flex flex-col gap-12 relative">
       <div>
         <img
-          src={product.image.desktop}
+          src={"../../assets/images/" + product.image.desktop}
           alt={product.name}
           className="w-72 rounded-2xl"
         />
