@@ -1,9 +1,14 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
 const CartContext = createContext();
 
 export function CartProvider({ children }) {
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = useState(() => {
+    const storedCart = localStorage.getItem("cart");
+
+    return storedCart ? JSON.parse(storedCart) : [];
+  });
+  const [isConfirm, setIsConfirm] = useState(false);
 
   function getCartItem(name) {
     const cartItem = cart.find((item) => item.name === name);
@@ -37,6 +42,49 @@ export function CartProvider({ children }) {
     );
   }
 
+  // function handleDeleteCart(name) {
+  //   setCart.filter((cart) => cart.name !== name);
+  // }
+
+  // function handleDeleteCart(name) {
+  //   setCart((pr) => pr.filter((cart) => cart.name !== name));
+  // }
+
+  function handleDeleteCart(name) {
+    setCart((pr) => pr.filter((cart) => cart.name !== name));
+  }
+
+  // Effect for storing cart to localstorage
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }, [cart]);
+
+  useEffect(() => {
+    function handleEscapeKey(e) {
+      if (e.key === "Escape") {
+        setIsConfirm(false);
+      }
+    }
+
+    window.addEventListener("keydown", handleEscapeKey);
+
+    return () => window.removeEventListener("keydown", handleEscapeKey);
+  }, []);
+
+  function handleIsConfirm() {
+    console.log("confirmed");
+
+    setIsConfirm((confirm) => !confirm);
+  }
+
+  function handleOverlayClick() {
+    setIsConfirm(false);
+  }
+
+  let totalAmount = 0;
+
+  cart.map((a) => (totalAmount += a.product.price * a.quantity), 0);
+
   // To wrap my app  with, without this, no access to the context.
   return (
     <CartContext.Provider
@@ -46,6 +94,11 @@ export function CartProvider({ children }) {
         handleAddToCart,
         handleDecrement,
         handleIncrement,
+        handleDeleteCart,
+        totalAmount,
+        isConfirm,
+        handleIsConfirm,
+        handleOverlayClick,
       }}
     >
       {children}

@@ -1,7 +1,8 @@
 import { useCart } from "../useCart";
+import { Button } from "./reusables/Button";
 
 export const ProductCheckout = () => {
-  const { cart } = useCart();
+  const { cart, handleDeleteCart, totalAmount, handleIsConfirm } = useCart();
 
   const isCartEmpty = cart.length === 0;
 
@@ -9,18 +10,21 @@ export const ProductCheckout = () => {
 
   return (
     <CartCheckoutBox numberOfItems={numberOfItems}>
-      {isCartEmpty ? <EmptyCart /> : <FilledCart cart={cart} />}
+      {isCartEmpty ? (
+        <EmptyCart />
+      ) : (
+        <FilledCart
+          cart={cart}
+          onDeleteCart={handleDeleteCart}
+          totalAmount={totalAmount}
+          onConfirm={handleIsConfirm}
+        />
+      )}
     </CartCheckoutBox>
   );
 };
 
-function FilledCart({ cart }) {
-  let totalAmount = 0;
-
-  cart.map((a) => (totalAmount += a.product.price * a.quantity), 0);
-
-  console.log(totalAmount);
-
+function FilledCart({ cart, onDeleteCart, totalAmount, onConfirm }) {
   return (
     <>
       {cart.map((cartItem) => (
@@ -44,7 +48,10 @@ function FilledCart({ cart }) {
               </div>
             </div>
 
-            <button className="rounded-full cursor-pointer p-[6px]! cancel-btn">
+            <button
+              onClick={() => onDeleteCart(prompt.name)}
+              className="rounded-full cursor-pointer p-[6px]! cancel-btn"
+            >
               <img
                 src="../../assets/images/icon-remove-item.svg"
                 alt="cancel icon"
@@ -72,9 +79,9 @@ function FilledCart({ cart }) {
         </span>
       </p>
 
-      <button className="text-white cursor-pointer rounded-full font-bold text-[1.3rem] bg-[var(--color-red)] py-[8px]! px-[3rem]! hover:bg-[#8b290b] active:bg-[#8b290b] order-btn">
-        Confirm Order
-      </button>
+      <Button className="smooth-trans" onClick={() => onConfirm()}>
+        confirm order
+      </Button>
     </>
   );
 }

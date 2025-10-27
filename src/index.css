@@ -40,7 +40,7 @@ body {
   border: 1px solid var(--color-red);
 }
 
-.order-btn {
+.smooth-trans {
   transition: all 0.3s;
 }
 
@@ -53,4 +53,10 @@ body {
 .cancel-btn:active {
   box-shadow: none;
   color: #f4edeb;
+}
+
+.modal-confirm {
+  transform: translate(50%, 50%);
+  /* top: 50%;
+  left: 50%; */
 }
