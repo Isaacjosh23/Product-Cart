@@ -2,18 +2,15 @@ import { useCart } from "../useCart";
 import { Button } from "./reusables/Button";
 
 export function ProductOrderConfirm() {
-  const { cart, totalAmount, handleOverlayClick } = useCart();
+  const { cart, totalAmount, handleOverlayClick, handleNewOrder } = useCart();
 
   console.log(cart);
 
   return (
     <>
-      <div className="flex flex-col justify-center gap-12 absolute z-[50] top-[-45%] left-[13%]  bg-white p-12 w-[45rem] rounded-2xl modal-confirm">
+      <div className="flex flex-col gap-12 fixed z-[50] w-[30rem] md:w-[40rem] max-h-[90vh] overflow-y-auto top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2  bg-white p-8 rounded-2xl">
         <div className="flex flex-col justify-center items-start gap-12">
-          <img
-            src="../../../assets/images/icon-order-confirmed.svg"
-            alt="Done icon"
-          />
+          <img src="/assets/images/icon-order-confirmed.svg" alt="Done icon" />
 
           <div className="flex flex-col justify-center gap-6">
             <h2 className="text-4xl font-bold">Order Confirmed</h2>
@@ -22,7 +19,7 @@ export function ProductOrderConfirm() {
           </div>
         </div>
 
-        <div className="flex flex-col gap-12 bg-[var(--color-rose-50)] p-10 rounded-2xl">
+        <div className="flex flex-col gap-12 bg-[var(--color-rose-50)] p-6 rounded-2xl">
           <ul className=" flex flex-col justify-center gap-4">
             {cart.map((item) => (
               <OrderedItem key={item.name} item={item} cart={cart} />
@@ -30,17 +27,20 @@ export function ProductOrderConfirm() {
           </ul>
 
           <div className="flex items-center justify-between">
-            <p className="text-xl text-[var(--color-rose-500)] font-medium">
+            <p className="text-[1.2rem] text-[var(--color-rose-500)] font-medium">
               Order Total
             </p>
 
-            <p className="text-4xl text-[var(--color-rose-900)] font-bold">
+            <p className="text-3xl md:text-4xl text-[var(--color-rose-900)] font-bold">
               ${totalAmount}
             </p>
           </div>
         </div>
 
-        <Button className="place-items-stretch smooth-trans">
+        <Button
+          onClick={handleNewOrder}
+          className="place-items-stretch smooth-trans"
+        >
           start new order
         </Button>
       </div>
@@ -68,13 +68,19 @@ function OrderedItem({ item }) {
 
   return (
     <>
-      <li className="grid grid-cols-[2fr_10fr_1fr] items-center gap-6">
+      <li className="grid grid-cols-[3fr_10fr_1fr] items-center gap-6">
         <div>
-          <img src={handleGetImagePath(item.product)} alt={item.product.name} />
+          <img
+            src={handleGetImagePath(item.product)}
+            alt={item.product.name}
+            className="w-full"
+          />
         </div>
 
         <div className="flex flex-col gap-5">
-          <h3 className="text-xl font-bold">{item.product.name}</h3>
+          <h3 className="text-xl font-bold w-[13rem] md:w-full truncate">
+            {item.product.name}
+          </h3>
 
           <div className="flex items-center gap-4">
             <p className="text-[1.2rem] text-[var(--color-red)] font-bold">

@@ -49,11 +49,11 @@ function FilledCart({ cart, onDeleteCart, totalAmount, onConfirm }) {
             </div>
 
             <button
-              onClick={() => onDeleteCart(prompt.name)}
+              onClick={() => onDeleteCart(cartItem.product.name)}
               className="rounded-full cursor-pointer p-[6px]! cancel-btn"
             >
               <img
-                src="../../assets/images/icon-remove-item.svg"
+                src="/assets/images/icon-remove-item.svg"
                 alt="cancel icon"
               />
             </button>
@@ -70,7 +70,7 @@ function FilledCart({ cart, onDeleteCart, totalAmount, onConfirm }) {
 
       <p className="flex items-center justify-center gap-4 rounded-2xl bg-[var(--color-rose-100)] py-[8px]!">
         <img
-          src="../../assets/images/icon-carbon-neutral.svg"
+          src="/assets/images/icon-carbon-neutral.svg"
           alt="carbon neutral icon"
         />
 
@@ -90,7 +90,7 @@ function EmptyCart() {
   return (
     <div className="place-items-center">
       <img
-        src="../../assets/images/illustration-empty-cart.svg"
+        src="/assets/images/illustration-empty-cart.svg"
         alt="empty cart icon"
       />
 
@@ -103,12 +103,14 @@ function EmptyCart() {
 
 function CartCheckoutBox({ children, numberOfItems }) {
   return (
-    <div className="bg-white w-[40rem] flex flex-col gap-8 rounded-3xl py-[2rem]! px-[3rem]!">
-      <h3 className="text-3xl font-bold text-[var(--color-red)]">
-        Your Cart ({numberOfItems})
-      </h3>
+    <div className="md:place-items-center">
+      <div className="bg-white md:w-[35rem] flex flex-col gap-8 rounded-3xl py-[2rem]! px-[3rem]!">
+        <h3 className="text-3xl font-bold text-[var(--color-red)]">
+          Your Cart ({numberOfItems})
+        </h3>
 
-      {children}
+        {children}
+      </div>
     </div>
   );
 }

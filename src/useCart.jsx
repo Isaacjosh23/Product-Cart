@@ -42,16 +42,8 @@ export function CartProvider({ children }) {
     );
   }
 
-  // function handleDeleteCart(name) {
-  //   setCart.filter((cart) => cart.name !== name);
-  // }
-
-  // function handleDeleteCart(name) {
-  //   setCart((pr) => pr.filter((cart) => cart.name !== name));
-  // }
-
   function handleDeleteCart(name) {
-    setCart((pr) => pr.filter((cart) => cart.name !== name));
+    setCart((pr) => pr.filter((item) => item.name !== name));
   }
 
   // Effect for storing cart to localstorage
@@ -59,6 +51,12 @@ export function CartProvider({ children }) {
     localStorage.setItem("cart", JSON.stringify(cart));
   }, [cart]);
 
+  function handleNewOrder() {
+    setCart([]);
+    setIsConfirm(false);
+  }
+
+  // Effect for closing confirm modal on Escape key press
   useEffect(() => {
     function handleEscapeKey(e) {
       if (e.key === "Escape") {
@@ -70,6 +68,16 @@ export function CartProvider({ children }) {
 
     return () => window.removeEventListener("keydown", handleEscapeKey);
   }, []);
+
+  useEffect(() => {
+    if (isConfirm) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+
+    return () => (document.body.style.overflow = "");
+  }, [isConfirm]);
 
   function handleIsConfirm() {
     console.log("confirmed");
@@ -99,6 +107,7 @@ export function CartProvider({ children }) {
         isConfirm,
         handleIsConfirm,
         handleOverlayClick,
+        handleNewOrder,
       }}
     >
       {children}

@@ -7,7 +7,7 @@ export const ProductContainer = () => {
   const { isConfirm } = useCart();
 
   return (
-    <div className="flex items-start py-8! container relative">
+    <div className="flex flex-col lg:flex-row lg:items-start gap-20 py-8! container relative">
       <ProductDisplay />
 
       <ProductCheckout />
